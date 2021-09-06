@@ -149,7 +149,7 @@ int TCPClient::Tool(int index){
 }
 
 int TCPClient::RobotMode(){
-    const char* t = "ClearError()";
+    const char* t = "RobotMode()";
     printf("%s\n", t);
     char bufRev[1024] = {0};
     return SendAndRecvData(t, bufRev);
