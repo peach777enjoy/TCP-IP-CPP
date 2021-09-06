@@ -65,14 +65,14 @@ All files can be modified according to the robot TCP/IP remote control scheme (h
 
 ## 3. Test environment
 1. Windows test environment
-    -os: Windows 10 64-bit
-    -cmake: Just publish the version on the official website
-    -gcc: x86_64 posix
-    -ide: VSCode
+   - os: Windows 10 64-bit
+   - cmake: Just publish the version on the official website
+   - gcc: x86_64 posix
+   - ide: VSCode
   
   
 2. Ubuntu test environment
-    -os: Ubuntu 20.04 desktop 64-bit
-    -cmake: Just publish the version on the official website
-    -gcc: x86_64_linux_gnu
-    -ide: VSCode
+   - os: Ubuntu 20.04 desktop 64-bit
+   - cmake: Just publish the version on the official website
+   - gcc: x86_64_linux_gnu
+   - ide: VSCode
