@@ -75,7 +75,7 @@ private:
     uint32_t reConnectBlockTimeMs;
     bool isConnected;
     int  sockfd;
-    pthread_t ReConnectThd; // 监听线程
+    pthread_t ReConnectThd; 
 };
 
 #endif

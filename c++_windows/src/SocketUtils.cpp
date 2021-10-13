@@ -3,12 +3,12 @@
 using std::stringstream;
 
 TCPClient::TCPClient(){
-    //加载套接字
+    //load socket
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
     {
         printf("Failed to load Winsock");
     }
-    //创建套接字
+    //create socket
     sockClient = socket(AF_INET, SOCK_STREAM, 0);
     if (SOCKET_ERROR == sockClient){
         printf("Socket() error:%d", WSAGetLastError());
@@ -33,7 +33,7 @@ int TCPClient::ConnectServer(const char* ip, int port, uint32_t blockTimeMs){
         perror("[TCPClient::ConnectServer] :");
         return -3;
     }
-    //向服务器发出连接请求
+    //make a connection request to the server
     if (connect(sockClient, (struct sockaddr*)&addrSrv, sizeof(addrSrv)) == SOCKET_ERROR){
         printf("Connect failed:%d", WSAGetLastError());
         return -4;
@@ -42,7 +42,6 @@ int TCPClient::ConnectServer(const char* ip, int port, uint32_t blockTimeMs){
 }
 
 int TCPClient::SendData(const char* bufSend){
-    //发送数据
     int ret = send(sockClient, bufSend, strlen(bufSend), 0);
     if (-1 == ret){
         printf("send failed:%d\n", WSAGetLastError());
@@ -58,7 +57,6 @@ int TCPClient::RecvData(char* bufRev, uint32_t bufSize, uint32_t timeOutMs){
         printf("[TCPClient::Recvdata] set time out faild!!!!!  \n");
         return -2;
     }  
-    //接收数据
     int ret = recv(sockClient, bufRev, bufSize, 0);
     if (-1 == ret){
         printf("recv failed:%d\n", WSAGetLastError());
@@ -84,7 +82,6 @@ int TCPClient::SendAndRecvData(const char *bufSend, char * bufRev, uint32_t bufS
 }
     
 int TCPClient::Close(){
-    //关闭套接字
     if(-1 == closesocket(sockClient)){
         printf("close failed:%d\n", WSAGetLastError());
         return -1;

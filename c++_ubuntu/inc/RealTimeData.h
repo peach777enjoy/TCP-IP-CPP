@@ -2,14 +2,14 @@
 
 #pragma pack(push)
 #pragma pack(8)
-// 数据 按照 8 字节 以及  48 字节对齐的模式,
-// 大小设计为  30 * 8 * 6 = 30 *6*sizeof(double) = 30 * sizeof(double)
+// data: 8 bytes and 48 bytes aligned.
+// size: 30 * 8 * 6 = 30 *6*sizeof(double) = 30 * sizeof(double)
 typedef struct RealTimeData_t {
     // 
-    uint64_t len;                        // 0000 ~ 0000  字符长度
+    uint64_t len;                        // 0000 ~ 0000  string length
     uint64_t digital_input_bits;         // 0008 ~ 0015  DI 
     uint64_t digital_outputs;            // 0016 ~ 0023  DO
-    uint64_t robot_mode;                 // 0024 ~ 0031  机器人模式
+    uint64_t robot_mode;                 // 0024 ~ 0031  
     uint64_t controller_timer;           // 0032 ~ 0039                    
     uint64_t run_time;                   // 0040 ~ 0047                      
     // 0048 ~ 0095                       //                
