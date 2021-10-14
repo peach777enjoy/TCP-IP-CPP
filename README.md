@@ -39,8 +39,8 @@
 ## 4. 控制器版本
 可以使用TCP/IP协议的控制器版本如下：  
 
-- MG400： 1.5.4.0
-- CR： 3.5.1.9
+- MG400： 1.5.4.0 及以上
+- CR： 3.5.1.9 及以上
 
 
 ---
@@ -86,5 +86,5 @@ All files can be modified according to the robot TCP/IP remote control scheme (h
 ## 4. Controller version
 The controller versions that can use the TCP/IP protocol are as follows:
 
-- MG400: 1.5.4.0
-- CR: 3.5.1.9
+- MG400: 1.5.4.0 and above
+- CR: 3.5.1.9 and above
