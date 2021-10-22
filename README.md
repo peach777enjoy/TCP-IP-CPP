@@ -23,18 +23,24 @@
    
 
 ## 3. 测试环境
-1. Windows 测试环境
+1. c++_windows 测试环境
    - os: Windows 10 64-bit
    - cmake: 官网发布版本即可
    - gcc: x86_64 posix
    - ide: VSCode
   
 
-2. Ubuntu 测试环境
+2. c++_ubuntu 测试环境
    - os: Ubuntu 20.04 desktop 64-bit
    - cmake: 官网发布版本即可
    - gcc: x86_64_linux_gnu
    - ide: VSCode
+  
+
+3. c++_vs2017 测试环境
+   - os: Windows 10 64-bit
+   - ide: vs2017  debug/release x86/x64
+
 
 ## 4. 控制器版本
 可以使用TCP/IP协议的控制器版本如下：  
@@ -70,19 +76,25 @@ All files can be modified according to the robot TCP/IP remote control scheme (h
 
 
 ## 3. Test environment
-1. Windows test environment
+1. c++_Windows test environment
    - os: Windows 10 64-bit
    - cmake: Just publish the version on the official website
    - gcc: x86_64 posix
    - ide: VSCode
   
   
-2. Ubuntu test environment
+2. c++_buntu test environment
    - os: Ubuntu 20.04 desktop 64-bit
    - cmake: Just publish the version on the official website
    - gcc: x86_64_linux_gnu
    - ide: VSCode
   
+
+3. c++_vs2017 test environment
+   - os: Windows 10 64-bit
+   - ide: vs2017  debug/release x86/x64
+
+
 ## 4. Controller version
 The controller versions that can use the TCP/IP protocol are as follows:
 

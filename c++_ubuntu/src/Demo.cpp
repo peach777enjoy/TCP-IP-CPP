@@ -18,7 +18,7 @@ void dashboard(TCPClient *clientDashboard, TCPClient *clientFeedback){
     sleep(8);
     clientFeedback->JointMovJ(0,30,0,0,0,0);
     sleep(8);
-    
+    printf("end!!!");
     mtx.lock();
     flag = false;
     mtx.unlock();

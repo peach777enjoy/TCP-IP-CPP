@@ -1,3 +1,5 @@
+
+
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -18,7 +20,7 @@ void dashboard(TCPClient *clientDashboard, TCPClient *clientFeedback){
     Sleep(8000);
     clientFeedback->JointMovJ(0,30,0,0,0,0);
     Sleep(8000);
-    printf("end!!!");
+	printf("end!!!");
     mtx.lock();
     flag = false;
     mtx.unlock();
@@ -55,7 +57,7 @@ void feedback(TCPClient *clientFeedback){
                 printf("%02x %02x %2x %02x %02x %02x %02x %02x\n",
                     p_temp[0],p_temp[1],p_temp[2],p_temp[3],
                     p_temp[4],p_temp[5],p_temp[6],p_temp[7]);
-                //print_params(&pack);
+                print_params(&pack);
             } else {
                 perror("recv err");
             }
