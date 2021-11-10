@@ -1,5 +1,6 @@
 #include "SocketUtils.h"
 #include <sstream>
+#include <iostream>
 using std::stringstream;
 
 TCPClient::TCPClient(){
@@ -322,6 +323,171 @@ int TCPClient::SetHoldRegs(int id, int addr, int count, int table, int type){
     return SendAndRecvData(fmt.str().c_str(), bufRev);
 }
 
+int TCPClient::SetSafeSkin(int status) {
+    stringstream fmt;
+    fmt << "SetSafeSkin(" << status << ")";
+    printf("%s\n", fmt.str().c_str());
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(fmt.str().c_str(), bufRev);
+}
+
+int TCPClient::SetObstacleAvoid(int status) {
+    stringstream fmt;
+    fmt << "SetObstacleAvoid(" << status << ")";
+    printf("%s\n", fmt.str().c_str());
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(fmt.str().c_str(), bufRev);
+}
+
+int TCPClient::GetTraceStartPose(string traceName, float &x, float &y, float &z, float &a, float &b, float &c) {
+    //return point:{x,y,z,a,b,c}
+    stringstream fmt;
+    fmt << "GetTraceStartPose(" << traceName << ")";
+    printf("%s\n", fmt.str().c_str());
+    char bufRev[1024] = { 0 };
+    int num = SendAndRecvData(fmt.str().c_str(), bufRev);
+
+    if (num > 0) {
+        string str;
+        str = bufRev;
+        std::cout << "str:" << str << std::endl;
+        size_t posStart = str.find("{");
+        size_t posEnd = str.find("}");
+        string strAfter = str.substr(posStart + 1, posEnd - posStart - 1);
+
+        strAfter = strAfter + ",";
+        size_t pos = strAfter.find(",");
+        size_t size = strAfter.size();
+        std::vector<std::string> resVec;
+        while (pos != std::string::npos)
+        {
+            string x = strAfter.substr(0, pos);
+            resVec.push_back(x);
+            strAfter = strAfter.substr(pos + 1, size);
+            pos = strAfter.find(",");
+        }
+        if (resVec.size() == 6) {
+            x = stof(resVec[0]);
+            y = stof(resVec[1]);
+            z = stof(resVec[2]);
+            a = stof(resVec[3]);
+            b = stof(resVec[4]);
+            c = stof(resVec[5]);
+        }
+        else {
+            printf("GetTraceStartPose return point: parse error.\n");
+        }
+    }
+    return num;
+}
+
+int TCPClient::GetPathStartPose(string traceName, float &j1, float &j2, float &j3, float &j4, float &j5, float &j6) {
+    //return point:{j1,j2,j3,j4,j5,j6}
+    stringstream fmt;
+    fmt << "GetPathStartPose(" << traceName << ")";
+    printf("%s\n", fmt.str().c_str());
+    char bufRev[1024] = { 0 };
+    int num = SendAndRecvData(fmt.str().c_str(), bufRev);
+
+    if (num > 0) {
+        string str = bufRev;
+        size_t posStart = str.find("{");
+        size_t posEnd = str.find("}");
+        string strAfter = str.substr(posStart + 1, posEnd - posStart - 1);
+
+        strAfter = strAfter + ",";
+        size_t pos = strAfter.find(",");
+        size_t size = strAfter.size();
+        std::vector<std::string> resVec;
+        while (pos != std::string::npos)
+        {
+            string x = strAfter.substr(0, pos);
+            resVec.push_back(x);
+            strAfter = strAfter.substr(pos + 1, size);
+            pos = strAfter.find(",");
+        }
+        if (resVec.size() == 6) {
+            j1 = stof(resVec[0]);
+            j2 = stof(resVec[1]);
+            j3 = stof(resVec[2]);
+            j4 = stof(resVec[3]);
+            j5 = stof(resVec[4]);
+            j6 = stof(resVec[5]);
+        }
+        else {
+            printf("GetPathStartPose return point: parse error.\n");
+        }
+    }
+    return num;
+}
+
+int TCPClient::PositiveSolution(float j1, float j2, float j3, float j4, float j5, float j6) {
+    stringstream fmt;
+    fmt << "PositiveSolution(" << j1 << "," << j2 << "," << j3 << "," << j4 << "," << j5 << "," << j6 << ")";
+    printf("%s\n", fmt.str().c_str());
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(fmt.str().c_str(), bufRev);
+}
+
+int TCPClient::InverseSolution(float x, float y, int z, float a, float  b, float c) {
+    stringstream fmt;
+    fmt << "InverseSolution(" << x << "," << y << "," << z << "," << a << "," << b << "," << c << ")";
+    printf("%s\n", fmt.str().c_str());
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(fmt.str().c_str(), bufRev);
+}
+
+int TCPClient::SetCollisionLevel(int level) {
+    stringstream fmt;
+    fmt << "SetCollisionLevel(" << level << ")";
+    printf("%s\n", fmt.str().c_str());
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(fmt.str().c_str(), bufRev);
+}
+
+int TCPClient::HandleTrajPoints(string traceName) {
+    stringstream fmt;
+    fmt << "HandleTrajPoints(" << traceName << ")";
+    printf("%s\n", fmt.str().c_str());
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(fmt.str().c_str(), bufRev);
+}
+
+int TCPClient::GetSixForceData() {
+    const char* t = "GetSixForceData()";
+    printf("%s\n", t);
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(t, bufRev);
+}
+
+int TCPClient::GetAngle() {
+    const char* t = "GetAngle()";
+    printf("%s\n", t);
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(t, bufRev);
+}
+
+int TCPClient::GetPose() {
+    const char* t = "GetPose()";
+    printf("%s\n", t);
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(t, bufRev);
+}
+int TCPClient::EmergencyStop() {
+    const char* t = "EmergencyStop()";
+    printf("%s\n", t);
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(t, bufRev);
+}
+int TCPClient::Sync() {
+    const char* t = "Sync()";
+    printf("%s\n", t);
+    char bufRev[1024] = { 0 };
+    return SendAndRecvData(t, bufRev);
+}
+
+
+
 
 int TCPClient::MovJ(float j1, float j2, float j3, float j4, float j5, float j6){
     stringstream fmt;                       
@@ -413,6 +579,34 @@ int TCPClient::ServoJ(float j1, float j2, float j3, float j4, float j5, float j6
 int TCPClient::ServoP(float j1, float j2, float j3, float j4, float j5, float j6){
     stringstream fmt;                       
     fmt << "ServoP(" << j1 << "," << j2 << "," << j3 << "," << j4 << "," << j5 << "," << j6 << ")";
+    printf("%s\n", fmt.str().c_str());
+    return SendData(fmt.str().c_str());
+}
+
+int TCPClient::MoveJog(string axisID) {
+    stringstream fmt;
+    fmt << "MoveJog(" << axisID << ")";
+    printf("%s\n", fmt.str().c_str());
+    return SendData(fmt.str().c_str());
+}
+
+int TCPClient::StartTrace(string traceName) {
+    stringstream fmt;
+    fmt << "StartTrace(" << traceName << ")";
+    printf("%s\n", fmt.str().c_str());
+    return SendData(fmt.str().c_str());
+}
+
+int TCPClient::StartPath(string traceName, int intConst, int cart) {
+    stringstream fmt;
+    fmt << "StartPath(" << traceName << "," << intConst << "," << cart << ")";
+    printf("%s\n", fmt.str().c_str());
+    return SendData(fmt.str().c_str());
+}
+
+int TCPClient::StartFCTrace(string traceName) {
+    stringstream fmt;
+    fmt << "StartFCTrace(" << traceName << ")";
     printf("%s\n", fmt.str().c_str());
     return SendData(fmt.str().c_str());
 }
